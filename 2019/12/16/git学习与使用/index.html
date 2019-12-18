@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://liyiweighy.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="git&amp;#x8FDC;&amp;#x7A0B;&amp;#x5206;&amp;#x652F;&amp;#x67E5;&amp;#x770B;&amp;#x8FDC;&amp;#x7A0B;&amp;#x5206;&amp;#x652F;1git ls-remote  &amp;#x67E5;&amp;#x770B;&amp;#x672C;&amp;#x5730;&amp;#x6709;&amp;#x54EA;&amp;#x4E9B;&amp;#x5206;&amp;#x652F;123456git branch -vgit branch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git学习与使用">
+<meta property="og:url" content="https:&#x2F;&#x2F;liyiweighy.github.io&#x2F;2019&#x2F;12&#x2F;16&#x2F;git%E5%AD%A6%E4%B9%A0%E4%B8%8E%E4%BD%BF%E7%94%A8&#x2F;index.html">
+<meta property="og:site_name" content="胸口碎大石">
+<meta property="og:description" content="git&amp;#x8FDC;&amp;#x7A0B;&amp;#x5206;&amp;#x652F;&amp;#x67E5;&amp;#x770B;&amp;#x8FDC;&amp;#x7A0B;&amp;#x5206;&amp;#x652F;1git ls-remote  &amp;#x67E5;&amp;#x770B;&amp;#x672C;&amp;#x5730;&amp;#x6709;&amp;#x54EA;&amp;#x4E9B;&amp;#x5206;&amp;#x652F;123456git branch -vgit branch">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;liyiweighy.github.io&#x2F;2019&#x2F;12&#x2F;16&#x2F;git%E5%AD%A6%E4%B9%A0%E4%B8%8E%E4%BD%BF%E7%94%A8&#x2F;git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.png">
+<meta property="article:published_time" content="2019-12-16T05:38:59.000Z">
+<meta property="article:modified_time" content="2019-12-18T04:19:21.516Z">
+<meta property="article:author" content="李宜伟">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;liyiweighy.github.io&#x2F;2019&#x2F;12&#x2F;16&#x2F;git%E5%AD%A6%E4%B9%A0%E4%B8%8E%E4%BD%BF%E7%94%A8&#x2F;git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.png">
+
+<link rel="canonical" href="https://liyiweighy.github.io/2019/12/16/git%E5%AD%A6%E4%B9%A0%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>git学习与使用 | 胸口碎大石</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">胸口碎大石</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">骑猪环游世界</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/liyiweighy" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://liyiweighy.github.io/2019/12/16/git%E5%AD%A6%E4%B9%A0%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="李宜伟">
+      <meta itemprop="description" content="烹饪爱好者，关卡策划">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="胸口碎大石">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git学习与使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-16 13:38:59" itemprop="dateCreated datePublished" datetime="2019-12-16T13:38:59+08:00">2019-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-18 12:19:21" itemprop="dateModified" datetime="2019-12-18T12:19:21+08:00">2019-12-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index">
+                    <span itemprop="name">git相关</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="git&#x8FDC;&#x7A0B;&#x5206;&#x652F;"><a href="#git&#x8FDC;&#x7A0B;&#x5206;&#x652F;" class="headerlink" title="git&#x8FDC;&#x7A0B;&#x5206;&#x652F;"></a>git&#x8FDC;&#x7A0B;&#x5206;&#x652F;</h2><h3 id="&#x67E5;&#x770B;&#x8FDC;&#x7A0B;&#x5206;&#x652F;"><a href="#&#x67E5;&#x770B;&#x8FDC;&#x7A0B;&#x5206;&#x652F;" class="headerlink" title="&#x67E5;&#x770B;&#x8FDC;&#x7A0B;&#x5206;&#x652F;"></a>&#x67E5;&#x770B;&#x8FDC;&#x7A0B;&#x5206;&#x652F;</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git ls-remote</span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x67E5;&#x770B;&#x672C;&#x5730;&#x6709;&#x54EA;&#x4E9B;&#x5206;&#x652F;"><a href="#&#x67E5;&#x770B;&#x672C;&#x5730;&#x6709;&#x54EA;&#x4E9B;&#x5206;&#x652F;" class="headerlink" title="&#x67E5;&#x770B;&#x672C;&#x5730;&#x6709;&#x54EA;&#x4E9B;&#x5206;&#x652F;"></a>&#x67E5;&#x770B;&#x672C;&#x5730;&#x6709;&#x54EA;&#x4E9B;&#x5206;&#x652F;</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git branch -v</span><br><span class="line">git branch -vv</span><br><span class="line">* &#x5B57;&#x7B26;&#xFF1A;&#x4EE3;&#x8868;&#x5F53;&#x524D;&#x672C;&#x5730;&#x662F;&#x5728;&#x54EA;&#x4E2A;&#x5206;&#x652F;</span><br><span class="line"></span><br><span class="line">git branch --merged 		&#x67E5;&#x770B;&#x54EA;&#x4E9B;&#x5206;&#x652F;&#x5DF2;&#x7ECF;&#x5408;&#x5E76;&#x5230;&#x5F53;&#x524D;&#x5206;&#x652F;</span><br><span class="line">git branch --no-merged 		&#x67E5;&#x770B;&#x54EA;&#x4E9B;&#x5206;&#x652F;&#x672A;&#x5408;&#x5E76;&#x5230;&#x5F53;&#x524D;&#x5206;&#x652F;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="&#x5728;&#x672C;&#x5730;&#x4ED3;&#x5E93;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x5206;&#x652F;-test"><a href="#&#x5728;&#x672C;&#x5730;&#x4ED3;&#x5E93;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x5206;&#x652F;-test" class="headerlink" title="&#x5728;&#x672C;&#x5730;&#x4ED3;&#x5E93;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x5206;&#x652F;-test"></a>&#x5728;&#x672C;&#x5730;&#x4ED3;&#x5E93;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x5206;&#x652F;-test</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<p>&#x5B83;&#x662F;&#x4E0B;&#x9A6C;&#x4E24;&#x6761;&#x547D;&#x4EE4;&#x7684;&#x7B80;&#x5199;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch <span class="built_in">test</span></span><br><span class="line">git checkout <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x5207;&#x6362;&#x672C;&#x5730;&#x5206;&#x652F;"><a href="#&#x5207;&#x6362;&#x672C;&#x5730;&#x5206;&#x652F;" class="headerlink" title="&#x5207;&#x6362;&#x672C;&#x5730;&#x5206;&#x652F;"></a>&#x5207;&#x6362;&#x672C;&#x5730;&#x5206;&#x652F;</h3><p>&#x5207;&#x6362;&#x5206;&#x652F;&#x65F6;&#x4E00;&#x5B9A;&#x8981;&#x5C06;&#x672C;&#x5730;&#x641E;&#x6210;&#x5E72;&#x51C0;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;Stash&#x6216;&#x8005;Commit&#x6240;&#x6709;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout &#x5206;&#x652F;&#x540D;&#x5B57;</span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x5C06;&#x5206;&#x652F;&#x5408;&#x5E76;&#x5230;&#x4E3B;&#x5E72;"><a href="#&#x5C06;&#x5206;&#x652F;&#x5408;&#x5E76;&#x5230;&#x4E3B;&#x5E72;" class="headerlink" title="&#x5C06;&#x5206;&#x652F;&#x5408;&#x5E76;&#x5230;&#x4E3B;&#x5E72;"></a>&#x5C06;&#x5206;&#x652F;&#x5408;&#x5E76;&#x5230;&#x4E3B;&#x5E72;</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout &#x4E3B;&#x5E72;&#x540D;&#x5B57;</span><br><span class="line">git merge &#x5206;&#x652F;&#x540D;&#x5B57;</span><br></pre></td></tr></table></figure>
+<p>&#x5C06;&#x4E3B;&#x5E72;&#x5408;&#x5E76;&#x5230;&#x5206;&#x652F;&#x4E5F;&#x662F;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x5F0F;<br>&#x5408;&#x5E76;&#x65F6;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x89E3;&#x51B3;&#x51B2;&#x7A81;</p>
+<h3 id="&#x5C06;&#x672C;&#x5730;&#x5206;&#x652F;&#x63A8;&#x9001;&#x5230;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;"><a href="#&#x5C06;&#x672C;&#x5730;&#x5206;&#x652F;&#x63A8;&#x9001;&#x5230;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;" class="headerlink" title="&#x5C06;&#x672C;&#x5730;&#x5206;&#x652F;&#x63A8;&#x9001;&#x5230;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;"></a>&#x5C06;&#x672C;&#x5730;&#x5206;&#x652F;&#x63A8;&#x9001;&#x5230;&#x8FDC;&#x7A0B;&#x4ED3;&#x5E93;</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push origin &#x5206;&#x652F;&#x540D;&#x5B57;</span><br><span class="line">git push origin &#x5206;&#x652F;&#x540D;&#x5B57;:&#x5206;&#x652F;&#x522B;&#x540D; 	<span class="comment"># &#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x683C;&#x5F0F;&#x6765;&#x63A8;&#x9001;&#x672C;&#x5730;&#x5206;&#x652F;&#x5230;&#x4E00;&#x4E2A;&#x547D;&#x540D;&#x4E0D;&#x76F8;&#x540C;&#x7684;&#x8FDC;&#x7A0B;&#x5206;&#x652F;</span></span><br></pre></td></tr></table></figure>
+<p>&#x53EA;&#x6709;&#x8FD9;&#x6837;&#x63A8;&#x9001;&#x4E4B;&#x540E;&#xFF0C;&#x522B;&#x4EBA;&#x624D;&#x80FD;&#x770B;&#x5230;&#x8FD9;&#x4E2A;&#x5206;&#x652F;</p>
+<h3 id="&#x8DDF;&#x8E2A;&#x8FDC;&#x7A0B;&#x5206;&#x652F;"><a href="#&#x8DDF;&#x8E2A;&#x8FDC;&#x7A0B;&#x5206;&#x652F;" class="headerlink" title="&#x8DDF;&#x8E2A;&#x8FDC;&#x7A0B;&#x5206;&#x652F;"></a>&#x8DDF;&#x8E2A;&#x8FDC;&#x7A0B;&#x5206;&#x652F;</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout --track origin/&#x5206;&#x652F;&#x540D;&#x5B57;</span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x5220;&#x9664;&#x5206;&#x652F;"><a href="#&#x5220;&#x9664;&#x5206;&#x652F;" class="headerlink" title="&#x5220;&#x9664;&#x5206;&#x652F;"></a>&#x5220;&#x9664;&#x5206;&#x652F;</h3><p>&#x5220;&#x9664;&#x672C;&#x5730;&#x5206;&#x652F;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &#x5206;&#x652F;&#x540D;&#x5B57;</span><br></pre></td></tr></table></figure>
+
+<p>&#x5220;&#x9664;&#x8FDC;&#x7A0B;&#x5206;&#x652F;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete &#x5206;&#x652F;&#x540D;&#x5B57;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="git&#x522B;&#x540D;&#x8BBE;&#x7F6E;"><a href="#git&#x522B;&#x540D;&#x8BBE;&#x7F6E;" class="headerlink" title="git&#x522B;&#x540D;&#x8BBE;&#x7F6E;"></a>git&#x522B;&#x540D;&#x8BBE;&#x7F6E;</h2><h3 id="&#x6211;&#x5E38;&#x7528;&#x7684;&#x4E00;&#x4E9B;&#x522B;&#x540D;&#x8BBE;&#x7F6E;&#xFF1A;"><a href="#&#x6211;&#x5E38;&#x7528;&#x7684;&#x4E00;&#x4E9B;&#x522B;&#x540D;&#x8BBE;&#x7F6E;&#xFF1A;" class="headerlink" title="&#x6211;&#x5E38;&#x7528;&#x7684;&#x4E00;&#x4E9B;&#x522B;&#x540D;&#x8BBE;&#x7F6E;&#xFF1A;"></a>&#x6211;&#x5E38;&#x7528;&#x7684;&#x4E00;&#x4E9B;&#x522B;&#x540D;&#x8BBE;&#x7F6E;&#xFF1A;</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.co checkout</span><br><span class="line">git config --global alias.br branch</span><br><span class="line">git config --global alias.ci commit</span><br><span class="line">git config --global alias.st status</span><br><span class="line">git config --global alias.pull <span class="string">&apos;pull --rebase&apos;</span></span><br><span class="line">git config --global alias.last <span class="string">&apos;log -p -1 HEAD --name-status --graph&apos;</span></span><br><span class="line">git config --global alias.log5 <span class="string">&apos;log -p -5 HEAD --name-status --graph&apos;</span></span><br><span class="line">git config --global alias.log10 <span class="string">&apos;log -p -10 HEAD --name-status --graph&apos;</span></span><br><span class="line">git config --global alias.resetall <span class="string">&apos;reset --hard HEAD&apos;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x50A8;&#x85CF;-stash"><a href="#&#x50A8;&#x85CF;-stash" class="headerlink" title="&#x50A8;&#x85CF;-stash"></a>&#x50A8;&#x85CF;-stash</h3><p>&#x4E4B;&#x524D;&#x7528;WebUI&#x7684;&#x5DE5;&#x5177;&#x51FA;&#x73B0;&#x91CC;&#xFF0C;Revert&#x600E;&#x4E48;&#x90FD;&#x4E0D;&#x884C;&#xFF0C;&#x5237;&#x65B0;&#x4E4B;&#x540E;&#x6587;&#x4EF6;&#x53C8;&#x51FA;&#x73B0;&#x83AB;&#x540D;&#x7684;&#x4FEE;&#x6539;&#xFF0C;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x7528;Stash&#x6765;&#x89E3;&#x51B3;<br>1&#x3001;&#x5148;&#x628A;&#x672C;&#x5730;&#x8FDB;&#x884C;Stash<br>2&#x3001;&#x7136;&#x540E;&#x518D;&#x628A;&#x8FD9;&#x6B21;Stash drop&#x6389;&#x3002;&#x3002;&#x3002;</p>
+<h4 id="&#x5C06;&#x672C;&#x5730;&#x8FDB;&#x884C;&#x50A8;&#x85CF;"><a href="#&#x5C06;&#x672C;&#x5730;&#x8FDB;&#x884C;&#x50A8;&#x85CF;" class="headerlink" title="&#x5C06;&#x672C;&#x5730;&#x8FDB;&#x884C;&#x50A8;&#x85CF;"></a>&#x5C06;&#x672C;&#x5730;&#x8FDB;&#x884C;&#x50A8;&#x85CF;</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git stash </span><br><span class="line">git stash save</span><br></pre></td></tr></table></figure>
+
+<h4 id="&#x663E;&#x793A;&#x50A8;&#x85CF;&#x5217;&#x8868;"><a href="#&#x663E;&#x793A;&#x50A8;&#x85CF;&#x5217;&#x8868;" class="headerlink" title="&#x663E;&#x793A;&#x50A8;&#x85CF;&#x5217;&#x8868;"></a>&#x663E;&#x793A;&#x50A8;&#x85CF;&#x5217;&#x8868;</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure>
+
+<h4 id="&#x5E94;&#x7528;&#x50A8;&#x85CF;"><a href="#&#x5E94;&#x7528;&#x50A8;&#x85CF;" class="headerlink" title="&#x5E94;&#x7528;&#x50A8;&#x85CF;"></a>&#x5E94;&#x7528;&#x50A8;&#x85CF;</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash apply stash@{2}</span><br></pre></td></tr></table></figure>
+
+<h4 id="&#x79FB;&#x9664;&#x50A8;&#x85CF;"><a href="#&#x79FB;&#x9664;&#x50A8;&#x85CF;" class="headerlink" title="&#x79FB;&#x9664;&#x50A8;&#x85CF;"></a>&#x79FB;&#x9664;&#x50A8;&#x85CF;</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash drop stash@{2}</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="git&#x5E38;&#x7528;&#x547D;&#x4EE4;&#xFF1A;"><a href="#git&#x5E38;&#x7528;&#x547D;&#x4EE4;&#xFF1A;" class="headerlink" title="git&#x5E38;&#x7528;&#x547D;&#x4EE4;&#xFF1A;"></a>git&#x5E38;&#x7528;&#x547D;&#x4EE4;&#xFF1A;</h2><p><img src="/2019/12/16/git%E5%AD%A6%E4%B9%A0%E4%B8%8E%E4%BD%BF%E7%94%A8/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.png" alt="Git&#x5E38;&#x7528;&#x547D;&#x4EE4;"></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>谢谢你请我吃糖果！！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/weixinpay.png" alt="李宜伟 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="李宜伟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/16/FirstNewPost/" rel="prev" title="FirstNewPost">
+      <i class="fa fa-chevron-left"></i> FirstNewPost
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/16/%E5%A4%A7%E8%9B%87%E6%97%A0%E5%8F%8C3%E7%BB%88%E6%9E%81%E7%89%88/" rel="next" title="大蛇无双3终极版">
+      大蛇无双3终极版 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git远程分支"><span class="nav-number">1.</span> <span class="nav-text">git远程分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看远程分支"><span class="nav-number">1.1.</span> <span class="nav-text">查看远程分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看本地有哪些分支"><span class="nav-number">1.2.</span> <span class="nav-text">查看本地有哪些分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在本地仓库的基础上创建一个新分支-test"><span class="nav-number">1.3.</span> <span class="nav-text">在本地仓库的基础上创建一个新分支-test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换本地分支"><span class="nav-number">1.4.</span> <span class="nav-text">切换本地分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将分支合并到主干"><span class="nav-number">1.5.</span> <span class="nav-text">将分支合并到主干</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将本地分支推送到远程仓库"><span class="nav-number">1.6.</span> <span class="nav-text">将本地分支推送到远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跟踪远程分支"><span class="nav-number">1.7.</span> <span class="nav-text">跟踪远程分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">1.8.</span> <span class="nav-text">删除分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git别名设置"><span class="nav-number">2.</span> <span class="nav-text">git别名设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我常用的一些别名设置："><span class="nav-number">2.1.</span> <span class="nav-text">我常用的一些别名设置：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#储藏-stash"><span class="nav-number">2.2.</span> <span class="nav-text">储藏-stash</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将本地进行储藏"><span class="nav-number">2.2.1.</span> <span class="nav-text">将本地进行储藏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示储藏列表"><span class="nav-number">2.2.2.</span> <span class="nav-text">显示储藏列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用储藏"><span class="nav-number">2.2.3.</span> <span class="nav-text">应用储藏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除储藏"><span class="nav-number">2.2.4.</span> <span class="nav-text">移除储藏</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git常用命令："><span class="nav-number">3.</span> <span class="nav-text">git常用命令：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李宜伟"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">李宜伟</p>
+  <div class="site-description" itemprop="description">烹饪爱好者，关卡策划</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liyiweighy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liyiweighy" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:liyiweighy@163.com" title="E-Mail → mailto:liyiweighy@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-heart"></i>
+      FRIENDS
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://liyingmingliam.github.io/" title="https:&#x2F;&#x2F;liyingmingliam.github.io&#x2F;" rel="noopener" target="_blank">李英铭</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://linzhanyu.github.io/" title="https:&#x2F;&#x2F;linzhanyu.github.io&#x2F;" rel="noopener" target="_blank">林占宇</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宜伟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">3k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5 分钟</span>
+</div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
