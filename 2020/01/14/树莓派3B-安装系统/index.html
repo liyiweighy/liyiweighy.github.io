@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://liyiweighy.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="&amp;#x6811;&amp;#x8393;&amp;#x6D3E;3B+&amp;#x5B89;&amp;#x88C5;&amp;#x7CFB;&amp;#x7EDF;&amp;#x5C31;&amp;#x5728;&amp;#x8FC7;&amp;#x5E74;&amp;#x7684;&amp;#x524D;&amp;#x4E00;&amp;#x4E2A;&amp;#x6708;&amp;#xFF0C;&amp;#x6811;&amp;#x8393;&amp;#x6D3E;&amp;#x7A81;&amp;#x7136;&amp;#x5931;&amp;#x8054;&amp;#x4E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派3B+安装系统">
+<meta property="og:url" content="https:&#x2F;&#x2F;liyiweighy.github.io&#x2F;2020&#x2F;01&#x2F;14&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F&#x2F;index.html">
+<meta property="og:site_name" content="胸口碎大石">
+<meta property="og:description" content="&amp;#x6811;&amp;#x8393;&amp;#x6D3E;3B+&amp;#x5B89;&amp;#x88C5;&amp;#x7CFB;&amp;#x7EDF;&amp;#x5C31;&amp;#x5728;&amp;#x8FC7;&amp;#x5E74;&amp;#x7684;&amp;#x524D;&amp;#x4E00;&amp;#x4E2A;&amp;#x6708;&amp;#xFF0C;&amp;#x6811;&amp;#x8393;&amp;#x6D3E;&amp;#x7A81;&amp;#x7136;&amp;#x5931;&amp;#x8054;&amp;#x4E">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;liyiweighy.github.io&#x2F;2020&#x2F;01&#x2F;14&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F&#x2F;%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD%E9%A1%B5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;liyiweighy.github.io&#x2F;2020&#x2F;01&#x2F;14&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F&#x2F;SD%E5%8D%A1%E6%A0%BC%E5%BC%8F%E5%8C%96.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;liyiweighy.github.io&#x2F;2020&#x2F;01&#x2F;14&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F&#x2F;%E5%86%99%E5%85%A5%E9%95%9C%E5%83%8F.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;liyiweighy.github.io&#x2F;2020&#x2F;01&#x2F;14&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F&#x2F;%E7%A7%BB%E5%8A%A8%E5%88%86%E5%8C%BA.png">
+<meta property="article:published_time" content="2020-01-14T08:06:43.000Z">
+<meta property="article:modified_time" content="2020-01-14T09:00:23.892Z">
+<meta property="article:author" content="李宜伟">
+<meta property="article:tag" content="树莓派">
+<meta property="article:tag" content="瞎折腾">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;liyiweighy.github.io&#x2F;2020&#x2F;01&#x2F;14&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F&#x2F;%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD%E9%A1%B5.png">
+
+<link rel="canonical" href="https://liyiweighy.github.io/2020/01/14/%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>树莓派3B+安装系统 | 胸口碎大石</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">胸口碎大石</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">骑猪环游世界</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/liyiweighy" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://liyiweighy.github.io/2020/01/14/%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="李宜伟">
+      <meta itemprop="description" content="烹饪爱好者，关卡策划">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="胸口碎大石">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          树莓派3B+安装系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-14 16:06:43 / 修改时间：17:00:23" itemprop="dateCreated datePublished" datetime="2020-01-14T16:06:43+08:00">2020-01-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/2020-01/" itemprop="url" rel="index">
+                    <span itemprop="name">2020-01</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="&#x6811;&#x8393;&#x6D3E;3B-&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;"><a href="#&#x6811;&#x8393;&#x6D3E;3B-&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;" class="headerlink" title="&#x6811;&#x8393;&#x6D3E;3B+&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;"></a>&#x6811;&#x8393;&#x6D3E;3B+&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;</h2><p>&#x5C31;&#x5728;&#x8FC7;&#x5E74;&#x7684;&#x524D;&#x4E00;&#x4E2A;&#x6708;&#xFF0C;&#x6811;&#x8393;&#x6D3E;&#x7A81;&#x7136;&#x5931;&#x8054;&#x4E86;&#x3002;&#x3002;&#x3002;&#x3002;<br>&#x5404;&#x79CD;&#x60C5;&#x51B5;&#x6392;&#x9664;&#x4E4B;&#x540E;&#xFF0C;&#x53D1;&#x73B0;&#x662F;&#x95EA;&#x8FEA;&#x7684;&#x5185;&#x5B58;&#x5361;&#x4E0D;&#x884C;&#x4E86;&#xFF0C;&#x770B;&#x4E86;&#x4E0B;&#x8BA2;&#x5355;&#x6CA1;&#x6709;&#x51FA;&#x4FDD;&#x8D28;&#x671F;&#xFF0C;&#x5C31;&#x8054;&#x7CFB;&#x4E86;&#x4E0B;&#x5BA2;&#x670D;&#xFF0C;&#x628A;&#x5361;&#x5FEB;&#x9012;&#x56DE;&#x53BB;&#x68C0;&#x67E5;&#x4E4B;&#x540E;&#xFF0C;&#x76F4;&#x63A5;&#x7ED9;&#x6211;&#x53D1;&#x4E86;&#x4E00;&#x4E2A;&#x65B0;&#x7684;<br>&#x6240;&#x4EE5;&#x4ECE;&#x7CFB;&#x7EDF;&#x5B89;&#x88C5;&#x5230;&#x5404;&#x79CD;&#x73AF;&#x5883;&#x642D;&#x5EFA;&#x53C8;&#x5F97;&#x518D;&#x6765;&#x4E00;&#x904D;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x9002;&#x5408;&#x5C0F;&#x767D;&#x73A9;&#x5BB6;&#xFF0C;&#x5B89;&#x88C5;&#x5E26;&#x53EF;&#x89C6;&#x5316;&#x684C;&#x9762;&#x7684;&#x6811;&#x8393;&#x6D3E;&#x7CFB;&#x7EDF;</p>
+<a id="more"></a>
+
+<h3 id="&#x6811;&#x8393;&#x6D3E;&#x5B98;&#x7F51;&#x7CFB;&#x7EDF;&#x955C;&#x50CF;"><a href="#&#x6811;&#x8393;&#x6D3E;&#x5B98;&#x7F51;&#x7CFB;&#x7EDF;&#x955C;&#x50CF;" class="headerlink" title="&#x6811;&#x8393;&#x6D3E;&#x5B98;&#x7F51;&#x7CFB;&#x7EDF;&#x955C;&#x50CF;"></a>&#x6811;&#x8393;&#x6D3E;&#x5B98;&#x7F51;&#x7CFB;&#x7EDF;&#x955C;&#x50CF;</h3><p>&#x5B98;&#x7F51;&#x5730;&#x5740;&#xFF1A;<br><a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank" rel="noopener">https://www.raspberrypi.org/downloads/raspbian/</a></p>
+<p><img src="/2020/01/14/%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD%E9%A1%B5.png" alt="&#x5B98;&#x7F51;&#x4E0B;&#x8F7D;&#x9875;"></p>
+<p>&#x9009;&#x62E9;Raspbian Buster with desktop and recommended software<br>&#x8FD9;&#x4E2A;&#x662F;&#x5E26;&#x53EF;&#x89C6;&#x5316;&#x684C;&#x9762;&#xFF0C;&#x4E14;&#x81EA;&#x5E26;&#x5F88;&#x591A;&#x7A0B;&#x5E8F;&#x7684;&#x7248;&#x672C;<br>&#x4E0B;&#x8F7D;2G+&#xFF0C;&#x89E3;&#x538B;&#x4E4B;&#x540E;&#x83B7;&#x5F97;6G+&#x7684;img&#xFF0C;&#x7B49;&#x5F85;&#x5907;&#x7528;</p>
+<h3 id="Windows&#x7CFB;&#x7EDF;&#x4E0B;&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;"><a href="#Windows&#x7CFB;&#x7EDF;&#x4E0B;&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;" class="headerlink" title="Windows&#x7CFB;&#x7EDF;&#x4E0B;&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;"></a>Windows&#x7CFB;&#x7EDF;&#x4E0B;&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;</h3><h4 id="&#x683C;&#x5F0F;&#x5316;SD&#x5361;"><a href="#&#x683C;&#x5F0F;&#x5316;SD&#x5361;" class="headerlink" title="&#x683C;&#x5F0F;&#x5316;SD&#x5361;"></a>&#x683C;&#x5F0F;&#x5316;SD&#x5361;</h4><p>&#x4F7F;&#x7528;SD Card Formatter&#x5BF9;SD&#x5361;&#x8FDB;&#x884C;&#x683C;&#x5F0F;&#x5316;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x4E0B;&#x8F7D;&#x7F51;&#x5740;&#xFF1A;https://www.sdcard.org/downloads/formatter_4/eula_windows/ &#xFF08;&#x70B9;&#x51FB;Aceept&#x5F00;&#x59CB;&#x4E0B;&#x8F7D;&#xFF09;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/01/14/%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/SD%E5%8D%A1%E6%A0%BC%E5%BC%8F%E5%8C%96.png" alt="SD&#x5361;&#x683C;&#x5F0F;&#x5316;"></p>
+<h4 id="&#x5C06;&#x955C;&#x50CF;&#x5199;&#x5165;SD&#x5361;"><a href="#&#x5C06;&#x955C;&#x50CF;&#x5199;&#x5165;SD&#x5361;" class="headerlink" title="&#x5C06;&#x955C;&#x50CF;&#x5199;&#x5165;SD&#x5361;"></a>&#x5C06;&#x955C;&#x50CF;&#x5199;&#x5165;SD&#x5361;</h4><p>&#x4F7F;&#x7528;Win32DiskImager&#xFF0C;&#x5C06;&#x7CFB;&#x7EDF;&#x955C;&#x50CF;&#x5199;&#x5165;&#x5230;SD&#x5361;&#x4E2D;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x4E0B;&#x8F7D;&#x7F51;&#x5740;&#xFF1A;http://sourceforge.net/projects/win32diskimager/</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/01/14/%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/%E5%86%99%E5%85%A5%E9%95%9C%E5%83%8F.png" alt="&#x5199;&#x5165;&#x955C;&#x50CF;"></p>
+<p>&#x8FD9;&#x4E00;&#x6B65;&#x9996;&#x5148;&#x9009;&#x62E9;&#x4F60;&#x7684;raspberry.img&#x7CFB;&#x7EDF;&#x955C;&#x50CF;&#x5305;&#xFF0C;&#x7136;&#x540E;&#x9009;&#x62E9;&#x4F60;&#x7684;TF&#x5361;&#xFF0C;&#x70B9;&#x51FB;Write&#x5C31;&#x4F1A;&#x5F00;&#x59CB;&#x5DE5;&#x4F5C;&#x4E86;</p>
+<h3 id="&#x6811;&#x8393;&#x6D3E;&#x7CFB;&#x7EDF;&#x9884;&#x8BBE;&#x7F6E;"><a href="#&#x6811;&#x8393;&#x6D3E;&#x7CFB;&#x7EDF;&#x9884;&#x8BBE;&#x7F6E;" class="headerlink" title="&#x6811;&#x8393;&#x6D3E;&#x7CFB;&#x7EDF;&#x9884;&#x8BBE;&#x7F6E;"></a>&#x6811;&#x8393;&#x6D3E;&#x7CFB;&#x7EDF;&#x9884;&#x8BBE;&#x7F6E;</h3><p>&#x5728;&#x7535;&#x8111;&#x663E;&#x793A;&#x7684;&#x76D8;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x4E00;&#x4E2A;&#x79FB;&#x52A8;&#x5206;&#x533A;&#x4E3A;FAT32&#x683C;&#x5F0F;&#xFF0C;&#x6253;&#x5F00;&#xFF1A;<br><img src="/2020/01/14/%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/%E7%A7%BB%E5%8A%A8%E5%88%86%E5%8C%BA.png" alt="&#x79FB;&#x52A8;&#x5206;&#x533A;"></p>
+<h4 id="&#x5F00;&#x542F;SSH&#x8FDC;&#x7A0B;"><a href="#&#x5F00;&#x542F;SSH&#x8FDC;&#x7A0B;" class="headerlink" title="&#x5F00;&#x542F;SSH&#x8FDC;&#x7A0B;"></a>&#x5F00;&#x542F;SSH&#x8FDC;&#x7A0B;</h4><p>&#x5728;TF&#x5361;&#x5206;&#x533A;&#x91CC;&#x9762;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; &#x201C;ssh&#x201D; &#x7A7A;&#x6587;&#x4EF6;&#x5373;&#x53EF;&#xFF08;&#x4E0D;&#x8981;&#x6709;txt&#x540E;&#x7F00;&#xFF01;&#xFF09;</p>
+<h4 id="&#x5F00;&#x542F;&#x5F3A;&#x5236;HMDI&#x8F93;&#x51FA;"><a href="#&#x5F00;&#x542F;&#x5F3A;&#x5236;HMDI&#x8F93;&#x51FA;" class="headerlink" title="&#x5F00;&#x542F;&#x5F3A;&#x5236;HMDI&#x8F93;&#x51FA;"></a>&#x5F00;&#x542F;&#x5F3A;&#x5236;HMDI&#x8F93;&#x51FA;</h4><p>&#x5728;TF&#x5361;&#x5206;&#x533A;&#xFF0C;&#x6253;&#x5F00;config.txt&#x6587;&#x4EF6;(&#x5F00;&#x673A;&#x540E;&#x4F4D;&#x7F6E;&#xFF1A; /boot/config.txt)&#xFF0C;&#x4FEE;&#x6539;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hdmi_safe=1</span><br><span class="line">config_hdmi_boost=4</span><br><span class="line">hdmi_ignore_edid=0xa5000080</span><br><span class="line">hdmi_group=2</span><br><span class="line">hdmi_mode=82</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x9879;	&#x542B;&#x4E49;</span><br><span class="line">hdmi_safe=1					&#x5B89;&#x5168;&#x542F;&#x52A8;HDMI</span><br><span class="line">config_hdmi_boost=4			&#x5F00;&#x542F;&#x70ED;&#x63D2;&#x62D4;</span><br><span class="line">hdmi_group=1				CEA&#x7535;&#x89C6;&#x663E;&#x793A;&#x5668;</span><br><span class="line">hdmi_group=2				DMT&#x7535;&#x8111;&#x663E;&#x793A;&#x5668;</span><br><span class="line">hdmi_ignore_edid=0xa5000080	&#x5FFD;&#x7565;&#x81EA;&#x52A8;&#x63A2;&#x6D4B;&#x7684;&#x5206;&#x8FA8;&#x7387;</span><br><span class="line"></span><br><span class="line">&#x8F93;&#x51FA;&#x5206;&#x8FA8;&#x7387;&#xFF1A;	</span><br><span class="line">hdmi_mode=4		640x480 60Hz</span><br><span class="line">hdmi_mode=9		800x600 60Hz</span><br><span class="line">hdmi_mode=16	1024x768 60Hz</span><br><span class="line">hdmi_mode=82	1080p 60Hz</span><br></pre></td></tr></table></figure>
+
+<h4 id="&#x8BBE;&#x7F6E;WIFI&#x8D26;&#x53F7;&#x5BC6;&#x7801;"><a href="#&#x8BBE;&#x7F6E;WIFI&#x8D26;&#x53F7;&#x5BC6;&#x7801;" class="headerlink" title="&#x8BBE;&#x7F6E;WIFI&#x8D26;&#x53F7;&#x5BC6;&#x7801;"></a>&#x8BBE;&#x7F6E;WIFI&#x8D26;&#x53F7;&#x5BC6;&#x7801;</h4><p>&#x5728;TF&#x5361;&#x7684;boot&#x5206;&#x533A;&#xFF0C;&#x521B;&#x5EFA;wpa_supplicant.conf&#x6587;&#x4EF6;&#xFF0C;&#x52A0;&#x5165;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">country=CN</span><br><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">network={</span><br><span class="line">    ssid=<span class="string">&quot;feng&quot;</span></span><br><span class="line">    psk=<span class="string">&quot;peng123456&quot;</span></span><br><span class="line">    priority=1</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x5728;&#x6811;&#x8393;&#x6D3E;&#x901A;&#x7535;&#x540E;&#x4F1A;&#x81EA;&#x52A8;&#x6DFB;&#x52A0;&#x5230;/etc/wpa_supplicant/wpa_supplicant.conf&#x6587;&#x4EF6;&#x91CC;&#x9762;&#xFF0C;&#x8FDB;&#x884C;&#x81EA;&#x52A8;&#x8FDE;&#x63A5;&#x3002;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// &#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;&#xFF1A;</span><br><span class="line"><span class="comment">#ssid:&#x7F51;&#x7EDC;&#x7684;ssid</span></span><br><span class="line"><span class="comment">#psk:&#x5BC6;&#x7801;</span></span><br><span class="line"><span class="comment">#priority:&#x8FDE;&#x63A5;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x6570;&#x5B57;&#x8D8A;&#x5927;&#x4F18;&#x5148;&#x7EA7;&#x8D8A;&#x9AD8;&#xFF08;&#x4E0D;&#x53EF;&#x4EE5;&#x662F;&#x8D1F;&#x6570;&#xFF09;</span></span><br><span class="line"><span class="comment">#scan_ssid:&#x8FDE;&#x63A5;&#x9690;&#x85CF;WiFi&#x65F6;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x8BE5;&#x503C;&#x4E3A;1</span></span><br><span class="line"></span><br><span class="line">// &#x5982;&#x679C;&#x4F60;&#x7684; WiFi &#x6CA1;&#x6709;&#x5BC6;&#x7801;</span><br><span class="line">network={</span><br><span class="line">ssid=<span class="string">&quot;&#x4F60;&#x7684;&#x65E0;&#x7EBF;&#x7F51;&#x7EDC;&#x540D;&#x79F0;&#xFF08;ssid&#xFF09;&quot;</span></span><br><span class="line">key_mgmt=NONE</span><br><span class="line">}</span><br><span class="line">// &#x5982;&#x679C;&#x4F60;&#x7684; WiFi &#x4F7F;&#x7528;WEP&#x52A0;&#x5BC6;</span><br><span class="line"></span><br><span class="line">network={</span><br><span class="line">ssid=<span class="string">&quot;&#x4F60;&#x7684;&#x65E0;&#x7EBF;&#x7F51;&#x7EDC;&#x540D;&#x79F0;&#xFF08;ssid&#xFF09;&quot;</span></span><br><span class="line">key_mgmt=NONE</span><br><span class="line">wep_key0=<span class="string">&quot;&#x4F60;&#x7684;wifi&#x5BC6;&#x7801;&quot;</span></span><br><span class="line">}</span><br><span class="line">// &#x5982;&#x679C;&#x4F60;&#x7684; WiFi &#x4F7F;&#x7528;WPA/WPA2&#x52A0;&#x5BC6;</span><br><span class="line"></span><br><span class="line">network={</span><br><span class="line">ssid=<span class="string">&quot;&#x4F60;&#x7684;&#x65E0;&#x7EBF;&#x7F51;&#x7EDC;&#x540D;&#x79F0;&#xFF08;ssid&#xFF09;&quot;</span></span><br><span class="line">key_mgmt=WPA-PSK</span><br><span class="line">psk=<span class="string">&quot;&#x4F60;&#x7684;wifi&#x5BC6;&#x7801;&quot;</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+<p>&#x4EE5;&#x4E0A;&#x7684;&#x57FA;&#x672C;&#x8BBE;&#x7F6E;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x7535;&#x5F00;&#x673A;&#x5566;</p>
+<h3 id="&#x5F00;&#x673A;&#x540E;&#x7684;&#x5176;&#x4ED6;&#x8BBE;&#x7F6E;"><a href="#&#x5F00;&#x673A;&#x540E;&#x7684;&#x5176;&#x4ED6;&#x8BBE;&#x7F6E;" class="headerlink" title="&#x5F00;&#x673A;&#x540E;&#x7684;&#x5176;&#x4ED6;&#x8BBE;&#x7F6E;"></a>&#x5F00;&#x673A;&#x540E;&#x7684;&#x5176;&#x4ED6;&#x8BBE;&#x7F6E;</h3><h4 id="&#x6821;&#x6B63;&#x65F6;&#x95F4;"><a href="#&#x6821;&#x6B63;&#x65F6;&#x95F4;" class="headerlink" title="&#x6821;&#x6B63;&#x65F6;&#x95F4;"></a>&#x6821;&#x6B63;&#x65F6;&#x95F4;</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// &#x8BBE;&#x7F6E;&#x65F6;&#x533A;&#x4E3A; &#x4E9A;&#x6D32;&#xFF08;Asia&#xFF09; &#x4E0A;&#x6D77;&#xFF08;Shanghai&#xFF09;</span><br><span class="line">sudo dpkg-reconfigure tzdata</span><br><span class="line">// &#x542F;&#x52A8; NTP &#x4F7F;&#x8BA1;&#x7B97;&#x673A;&#x65F6;&#x949F;&#x4E0E; Internet &#x65F6;&#x95F4;&#x670D;&#x52A1;&#x5668;&#x540C;&#x6B65;</span><br><span class="line">sudo timedatectl <span class="built_in">set</span>-ntp <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h4 id="&#x6539;&#x53D8;&#x952E;&#x76D8;&#x5E03;&#x5C40;"><a href="#&#x6539;&#x53D8;&#x952E;&#x76D8;&#x5E03;&#x5C40;" class="headerlink" title="&#x6539;&#x53D8;&#x952E;&#x76D8;&#x5E03;&#x5C40;"></a>&#x6539;&#x53D8;&#x952E;&#x76D8;&#x5E03;&#x5C40;</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// &#x8FDB;&#x5165;&#x8BBE;&#x7F6E;&#x9875;&#x9762; &#x65B9;&#x6CD5;&#x4E00;</span><br><span class="line">sudo dpkg-reconfigure keyboard-configuration</span><br><span class="line">// &#x8FDB;&#x5165;&#x8BBE;&#x7F6E;&#x9875;&#x9762; &#x65B9;&#x6CD5;&#x4E8C;</span><br><span class="line">sudo raspi-config</span><br><span class="line">// &#x9009;&#x62E9; 4 Localisation Options -&gt; I3 Change Keyboard Layout</span><br></pre></td></tr></table></figure>
+
+<h4 id="VNC&#x8FDC;&#x7A0B;&#x5C4F;&#x5E55;&#x5171;&#x4EAB;"><a href="#VNC&#x8FDC;&#x7A0B;&#x5C4F;&#x5E55;&#x5171;&#x4EAB;" class="headerlink" title="VNC&#x8FDC;&#x7A0B;&#x5C4F;&#x5E55;&#x5171;&#x4EAB;"></a>VNC&#x8FDC;&#x7A0B;&#x5C4F;&#x5E55;&#x5171;&#x4EAB;</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// &#x6267;&#x884C;</span><br><span class="line">sudo apt-get install -y xrdp</span><br><span class="line">// &#x6267;&#x884C;</span><br><span class="line">sudo apt-get install -y tightvncserver xrdp</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>谢谢你请我吃糖果！！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/weixinpay.png" alt="李宜伟 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="李宜伟 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag"><i class="fa fa-tag"></i> 树莓派</a>
+              <a href="/tags/%E7%9E%8E%E6%8A%98%E8%85%BE/" rel="tag"><i class="fa fa-tag"></i> 瞎折腾</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/27/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B8%9D%E5%9B%BD/" rel="prev" title="自动化帝国">
+      <i class="fa fa-chevron-left"></i> 自动化帝国
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/14/%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E8%BD%AF%E4%BB%B6%E6%BA%90%E6%9B%B4%E6%94%B9/" rel="next" title="树莓派3B+软件源更改">
+      树莓派3B+软件源更改 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#树莓派3B-安装系统"><span class="nav-number">1.</span> <span class="nav-text">树莓派3B+安装系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#树莓派官网系统镜像"><span class="nav-number">1.1.</span> <span class="nav-text">树莓派官网系统镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows系统下安装系统"><span class="nav-number">1.2.</span> <span class="nav-text">Windows系统下安装系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式化SD卡"><span class="nav-number">1.2.1.</span> <span class="nav-text">格式化SD卡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将镜像写入SD卡"><span class="nav-number">1.2.2.</span> <span class="nav-text">将镜像写入SD卡</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树莓派系统预设置"><span class="nav-number">1.3.</span> <span class="nav-text">树莓派系统预设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开启SSH远程"><span class="nav-number">1.3.1.</span> <span class="nav-text">开启SSH远程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开启强制HMDI输出"><span class="nav-number">1.3.2.</span> <span class="nav-text">开启强制HMDI输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置WIFI账号密码"><span class="nav-number">1.3.3.</span> <span class="nav-text">设置WIFI账号密码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开机后的其他设置"><span class="nav-number">1.4.</span> <span class="nav-text">开机后的其他设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#校正时间"><span class="nav-number">1.4.1.</span> <span class="nav-text">校正时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改变键盘布局"><span class="nav-number">1.4.2.</span> <span class="nav-text">改变键盘布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VNC远程屏幕共享"><span class="nav-number">1.4.3.</span> <span class="nav-text">VNC远程屏幕共享</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李宜伟"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">李宜伟</p>
+  <div class="site-description" itemprop="description">烹饪爱好者，关卡策划</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liyiweighy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liyiweighy" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:liyiweighy@163.com" title="E-Mail → mailto:liyiweighy@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-heart"></i>
+      FRIENDS
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://liyingmingliam.github.io/" title="https:&#x2F;&#x2F;liyingmingliam.github.io&#x2F;" rel="noopener" target="_blank">李英铭</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://linzhanyu.github.io/" title="https:&#x2F;&#x2F;linzhanyu.github.io&#x2F;" rel="noopener" target="_blank">林占宇</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李宜伟</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">10k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">19 分钟</span>
+</div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
