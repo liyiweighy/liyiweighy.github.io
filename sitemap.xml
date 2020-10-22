@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://liyiweighy.github.io/2020/10/22/Pycharm%E5%AD%A6%E4%B9%A0/</loc>
+    
+    <lastmod>2020-10-22T11:11:21.216Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://liyiweighy.github.io/2020/10/21/hexo%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2020-10-21T05:21:45.075Z</lastmod>
@@ -107,14 +114,14 @@
   </url>
   
   <url>
-    <loc>https://liyiweighy.github.io/tags/index.html</loc>
+    <loc>https://liyiweighy.github.io/categories/index.html</loc>
     
     <lastmod>2019-12-17T10:29:02.439Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://liyiweighy.github.io/categories/index.html</loc>
+    <loc>https://liyiweighy.github.io/tags/index.html</loc>
     
     <lastmod>2019-12-17T10:29:02.439Z</lastmod>
     
